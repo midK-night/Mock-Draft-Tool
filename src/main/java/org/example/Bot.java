@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Bot {
-    private ArrayList<Integer> roster;
-    private int attribute;
+    private final ArrayList<Integer> roster;
+    private final int attribute;
 
     public Bot() {
         Random rand = new Random();
@@ -126,8 +126,8 @@ public class Bot {
 
     public int posAmount(int pos, Draftboard draftboard) {
         int posAmount = 0;
-        for (int i = 0; i < roster.size(); i++) {
-            if (draftboard.getPositions()[roster.get(i)] == pos) {
+        for (Integer integer : roster) {
+            if (draftboard.getPositions()[integer] == pos) {
                 posAmount++;
             }
         }
@@ -146,8 +146,7 @@ public class Bot {
                 break;
             }
         }
-        heavyDraft heavyDraft = new heavyDraft(location,isDrafted);
-        return heavyDraft;
+        return new heavyDraft(location,isDrafted);
     }
 
     public int BPA(Draftboard draftboard, int pick) {
@@ -207,10 +206,10 @@ public class Bot {
     }
 
     public String rosterToString(String[] ADP) {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < roster.size(); i++) {
-            str += "\nPick " + i + ": " + ADP[roster.get(i)];
+            str.append("\nPick ").append(i).append(": ").append(ADP[roster.get(i)]);
         }
-        return str;
+        return str.toString();
     }
 }
