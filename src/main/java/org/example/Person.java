@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Person {
-    private int pos;
-    private ArrayList<Integer> roster;
+    private final int pos;
+    private final ArrayList<Integer> roster;
 
     public Person(int draftPos) {
         pos = draftPos;
@@ -38,15 +38,15 @@ public class Person {
         return location;
     }
 
-    public int getPos() {
-        return pos;
+    public String rosterToString(String[] ADP) {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < roster.size(); i++) {
+            str.append("\nPick ").append(i).append(": ").append(ADP[roster.get(i)]);
+        }
+        return str.toString();
     }
 
-    public String rosterToString(String[] ADP) {
-        String str = "";
-        for (int i = 0; i < roster.size(); i++) {
-            str += "\nPick " + i + ": " + ADP[roster.get(i)];
-        }
-        return str;
+    public ArrayList<Integer> getRoster() {
+        return roster;
     }
 }

@@ -3,9 +3,9 @@ package org.example;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -49,6 +49,14 @@ public class DraftRunner {
                 notReverse = !notReverse;
             }
         }
+
+        System.out.print("Would you like to save this team? (y/n): ");
+        boolean save = console.nextLine().equalsIgnoreCase("y");
+        if (save) {
+            System.out.print("What is your team's name: ");
+            String name = console.nextLine();
+            teamSaver(draftboard, name);
+        }
     }
 
     public static adpRetrieve adpRetrieve(String type) throws IOException {
@@ -81,7 +89,11 @@ public class DraftRunner {
                 }
                 iterator.remove();
             }
-            adpRetrieve = new adpRetrieve(adp.toArray(new String[adp.size()]));
+            int[] positions = new int[adp.size()];
+            for (int i = 0; i < positions.length; i++) {
+                positions[i] = adp.get(i);
+            }
+            adpRetrieve = new adpRetrieve(positions);
         }
 
         return adpRetrieve;
@@ -111,5 +123,72 @@ public class DraftRunner {
         return idsArray;
     }
 
+    public static void teamSaver(Draftboard d, String name) {
+        Date date = new Date();
+        String str = "{\n";
 
+        str += "\"name\": \"" + name + "\",\n";
+        str += "\"month\": \"" + date.getMonth() + "\",\n";
+        str += "\"date\": \"" + date.getDate() + "\",\n";
+        str += "\"year\": \"" + date.getYear() + "\",\n";
+        str += "\"players\": [";
+
+        Person p = d.getPlayers().get(d.getPlayerDraftPos()).getPerson();
+        for (int i : p.getRoster()) {
+            String tempPlayer = d.getADP()[p.getRoster().get(i)];
+            str += "\"" + tempPlayer + "\",\n";
+        }
+        str += "]\n}\n]";
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./teams.json"));
+            lastLineDelete("./teams.json");
+            writer.write(str);
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void lastLineDelete (String filename) {
+        File inputFile = new File(filename);
+        File tempFile = new File("mytemp.json");
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
+
+            String currentLine;
+            String temp = "";
+            while ((currentLine = br.readLine()) != null) {
+                temp += currentLine;
+            }
+            br.close();
+            int lines = countLines(temp);
+
+            br = new BufferedReader(new FileReader(inputFile));
+            for (int i = 0; i < lines - 1; i++) {
+                currentLine = br.readLine();
+                bw.write(currentLine);
+            }
+
+            tempFile.renameTo(inputFile);
+            inputFile.delete();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static int countLines(String str) {
+        if(str == null || str.isEmpty())
+        {
+            return 0;
+        }
+        int lines = 1;
+        int pos = 0;
+        while ((pos = str.indexOf("\n", pos) + 1) != 0) {
+            lines++;
+        }
+        return lines;
+    }
 }

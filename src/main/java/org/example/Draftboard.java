@@ -9,12 +9,15 @@ public class Draftboard {
     static int[] positions;
     static boolean[] isDrafted;
 
+    static int playerDraftPos;
+
     static int[] QB_Index;
     static int[] WR_Index;
     static int[] TE_Index;
     static int[] RB_Index;
 
     public Draftboard(int teamAmount, int playerDraftPos, String[] names, int[] pos) {
+        this.playerDraftPos = playerDraftPos;
         players = new ArrayList<>();
         if (playerDraftPos == -1) {
             for (int i = 0; i < teamAmount; i++) {
@@ -275,5 +278,13 @@ public class Draftboard {
 
     public boolean[] getDrafted() {
         return isDrafted;
+    }
+
+    public int getPlayerDraftPos() {
+        return playerDraftPos;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 }
