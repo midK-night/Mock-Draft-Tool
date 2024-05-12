@@ -10,6 +10,7 @@ public class Draftboard {
     static boolean[] isDrafted;
 
     static int playerDraftPos;
+    static int round;
 
     static int[] QB_Index;
     static int[] WR_Index;
@@ -43,6 +44,7 @@ public class Draftboard {
     }
 
     public void round(int round, boolean oddRound, int playerPosition) {
+        this.round = round + 1;
         Scanner console = new Scanner(System.in);
         System.out.println("\n*************\nROUND " + (round + 1) + "\n*************\n");
         if (oddRound) {
@@ -131,13 +133,14 @@ public class Draftboard {
                         case 8:
                             System.out.println("None");
                     }
-                    isDrafted[players.get(i).getBot().onTheClock(this, (round * players.size()) + i)] = true;
+                    isDrafted[players.get(i).getBot().onTheClock(this, (round * players.size()) + (players.size() - i))] = true;
                 }
             }
         }
     }
 
     public void round(int round, boolean oddRound) {
+        this.round = round + 1;
         System.out.println("\n*************\nROUND " + round + "\n*************\n");
         if (oddRound) {
             for (int i = 0; i < players.size(); i++) {
@@ -286,5 +289,9 @@ public class Draftboard {
 
     public ArrayList<Player> getPlayers() {
         return players;
+    }
+
+    public int getRound() {
+        return round;
     }
 }

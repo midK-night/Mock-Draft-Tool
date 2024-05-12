@@ -120,7 +120,11 @@ public class Bot {
             validResponse = !isDrafted[location];
         }
         roster.add(location);
-        System.out.println(ADP[location] + " was drafted at pick " + (1 + pick) + ", which is round " + ((pick / draftboard.getPlayerAmount()) + 1) + " pick " + (1 + (pick % draftboard.getPlayerAmount())));
+
+        int currentRound = draftboard.getRound();
+        int currentPick = 1 + (pick % currentRound);
+
+        System.out.println(ADP[location] + " was drafted at pick " + (1 + pick) + ", which is round " + (currentRound) + " pick " + (currentPick));
         return location;
     }
 

@@ -62,29 +62,35 @@ public class DraftRunner {
     public static adpRetrieve adpRetrieve(String type) throws IOException {
         adpRetrieve adpRetrieve;
 
+        String local = System.getProperty("user.dir");
+        local += "\\src\\main\\java\\org\\example\\ADP.json";
+
         ObjectMapper mapper = new ObjectMapper();
         if (type.equalsIgnoreCase("ADP")) {
             ArrayList<String> adp = new ArrayList<>();
-            JsonNode jsonNode = mapper.readTree(new File("./org/example/ADP.json"));
+            JsonNode rootNode = mapper.readTree(new File(local));
+            JsonNode jsonNode = rootNode.get("adp");
             Iterator<JsonNode> iterator = jsonNode.elements();
             while (iterator.hasNext()) {
-                adp.add(iterator.next().get("name").toString());
+                String temp = iterator.next().get("player").get("name").toString();
+                adp.add(temp.substring(1, temp.length() - 1));
                 iterator.remove();
             }
             adpRetrieve = new adpRetrieve(adp.toArray(new String[adp.size()]));
         } else {
             ArrayList<Integer> adp = new ArrayList<>();
-            JsonNode jsonNode = mapper.readTree(new File("./org/example/ADP.json"));
+            JsonNode rootNode = mapper.readTree(new File(local));
+            JsonNode jsonNode = rootNode.get("adp");
             Iterator<JsonNode> iterator = jsonNode.elements();
             while (iterator.hasNext()) {
-                String pos = iterator.next().get("position").toString();
-                if (pos.equals("QB")) {
+                String pos = iterator.next().get("player").get("position").toString();
+                if (pos.equals("\"QB\"")) {
                     adp.add(1);
-                } else if (pos.equals("RB")) {
+                } else if (pos.equals("\"RB\"")) {
                     adp.add(4);
-                } else if (pos.equals("WR")) {
+                } else if (pos.equals("\"WR\"")) {
                     adp.add(2);
-                } else if (pos.equals("TE")) {
+                } else if (pos.equals("\"TE\"")) {
                     adp.add(3);
                 }
                 iterator.remove();
@@ -104,11 +110,16 @@ public class DraftRunner {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            JsonNode jsonNode = mapper.readTree(new File("./org/example/ADP.json"));
+            String local = System.getProperty("user.dir");
+            local += "\\src\\main\\java\\org\\example\\ADP.json";
+            JsonNode rootNode = mapper.readTree(new File(local));
+            JsonNode jsonNode = rootNode.get("adp");
             Iterator<JsonNode> iterator = jsonNode.elements();
             while (iterator.hasNext()) {
                 JsonNode node = iterator.next();
-                ids.add(node.get("id").asInt());
+                JsonNode playerNode = node.get("player");
+                JsonNode idNode = playerNode.get("id");
+                ids.add(idNode.asInt());
                 iterator.remove();
             }
         } catch (IOException e) {
@@ -117,8 +128,8 @@ public class DraftRunner {
 
 
         int[] idsArray = new int[ids.size()];
-        for (Integer i : ids) {
-            idsArray[i] = i;
+        for (int i = 0; i < idsArray.length; i++) {
+            idsArray[i] = ids.get(i);
         }
         return idsArray;
     }
@@ -141,8 +152,10 @@ public class DraftRunner {
         str += "]\n}\n]";
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("./teams.json"));
-            lastLineDelete("./teams.json");
+            String local = System.getProperty("user.dir");
+            local += "\\src\\main\\java\\org\\example\\teams.json";
+            BufferedWriter writer = new BufferedWriter(new FileWriter(local));
+            lastLineDelete(local);
             writer.write(str);
             writer.close();
         } catch (IOException e) {
@@ -150,7 +163,7 @@ public class DraftRunner {
         }
     }
 
-    public static void lastLineDelete (String filename) {
+    public static void lastLineDelete(String filename) {
         File inputFile = new File(filename);
         File tempFile = new File("mytemp.json");
 
@@ -180,8 +193,7 @@ public class DraftRunner {
     }
 
     public static int countLines(String str) {
-        if(str == null || str.isEmpty())
-        {
+        if (str == null || str.isEmpty()) {
             return 0;
         }
         int lines = 1;
