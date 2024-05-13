@@ -63,7 +63,7 @@ public class DraftRunner {
         adpRetrieve adpRetrieve;
 
         String local = System.getProperty("user.dir");
-        local += "\\src\\main\\java\\org\\example\\ADP.json";
+        local += "\\src\\main\\java\\org\\example\\data\\ADP.json";
 
         ObjectMapper mapper = new ObjectMapper();
         if (type.equalsIgnoreCase("ADP")) {
@@ -111,7 +111,7 @@ public class DraftRunner {
         ObjectMapper mapper = new ObjectMapper();
         try {
             String local = System.getProperty("user.dir");
-            local += "\\src\\main\\java\\org\\example\\ADP.json";
+            local += "\\src\\main\\java\\org\\example\\data\\ADP.json";
             JsonNode rootNode = mapper.readTree(new File(local));
             JsonNode jsonNode = rootNode.get("adp");
             Iterator<JsonNode> iterator = jsonNode.elements();
@@ -153,7 +153,7 @@ public class DraftRunner {
 
         try {
             String local = System.getProperty("user.dir");
-            local += "\\src\\main\\java\\org\\example\\teams.json";
+            local += "\\src\\main\\java\\org\\example\\data\\teams.json";
             BufferedWriter writer = new BufferedWriter(new FileWriter(local));
             lastLineDelete(local);
             writer.write(str);

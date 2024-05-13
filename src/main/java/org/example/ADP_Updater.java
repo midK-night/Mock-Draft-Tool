@@ -52,11 +52,15 @@ public class ADP_Updater {
             HttpResponse<String> getResponse = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
             HttpResponse<String> getResponse2 = client2.send(getRequest2, HttpResponse.BodyHandlers.ofString());
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter("D:/IntelliJ/Mock-Draft-Tool-JSON/src/main/java/org/example/players.json"));
+            String local = System.getProperty("user.dir");
+            String players = local + "\\src\\main\\java\\org\\example\\data\\players.json";
+            String ADP = local + "\\src\\main\\java\\org\\example\\data\\ADP.json";
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(players));
             writer.write(getResponse.body());
             writer.close();
 
-            writer = new BufferedWriter(new FileWriter("D:/IntelliJ/Mock-Draft-Tool-JSON/src/main/java/org/example/ADP.json"));
+            writer = new BufferedWriter(new FileWriter(ADP));
             writer.write(getResponse2.body());
             writer.close();
         } catch (IOException | URISyntaxException | InterruptedException | RuntimeException e) {
