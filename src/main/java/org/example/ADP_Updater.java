@@ -12,7 +12,7 @@ import java.net.http.HttpResponse;
 import java.util.Date;
 
 public class ADP_Updater {
-    public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException {
+    public static void main() throws IOException, URISyntaxException, InterruptedException {
         try {
             HttpRequest getRequest = HttpRequest.newBuilder()
                     .uri(new URI("https://api.sleeper.app/v1/players/nfl"))

@@ -8,16 +8,19 @@ public class Draftboard {
     static String[] ADP;
     static int[] positions;
     static boolean[] isDrafted;
+    public static int[] ids;
 
     static int playerDraftPos;
-    static int round;
+    private int round;
 
     static int[] QB_Index;
     static int[] WR_Index;
     static int[] TE_Index;
     static int[] RB_Index;
 
-    public Draftboard(int teamAmount, int playerDraftPos, String[] names, int[] pos) {
+    public static ArrayList<Integer> draftboard;
+
+    public Draftboard(int teamAmount, int playerDraftPos, String[] names, int[] pos, int[] ids) {
         this.playerDraftPos = playerDraftPos;
         players = new ArrayList<>();
         if (playerDraftPos == -1) {
@@ -41,6 +44,9 @@ public class Draftboard {
         WR_Index = intArrayMaker(positions, 2);
         TE_Index = intArrayMaker(positions, 3);
         RB_Index = intArrayMaker(positions, 4);
+
+        draftboard = new ArrayList<>();
+        this.ids = ids;
     }
 
     public void round(int round, boolean oddRound, int playerPosition) {
@@ -89,7 +95,9 @@ public class Draftboard {
                         case 8:
                             System.out.println("None");
                     }
-                    isDrafted[temp.onTheClock(this, (round * players.size()) + i)] = true;
+                    int pick = temp.onTheClock(this, (round * players.size()) + i);
+                    isDrafted[pick] = true;
+                    draftboard.add(pick);
                 }
             }
         } else {
@@ -133,7 +141,9 @@ public class Draftboard {
                         case 8:
                             System.out.println("None");
                     }
-                    isDrafted[players.get(i).getBot().onTheClock(this, (round * players.size()) + (players.size() - i))] = true;
+                    int pick = players.get(i).getBot().onTheClock(this, (round * players.size()) + (players.size() - i));
+                    isDrafted[pick] = true;
+                    draftboard.add(pick);
                 }
             }
         }

@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class DraftRunner {
-    public static void main(String[] args) throws IOException {
+    public static void main() throws IOException {
         int[] ids = idRetriever();
         String[] ADP = adpRetrieve("ADP").getAdp();
         int[] positions = adpRetrieve("not adp").getPos();
@@ -28,7 +28,7 @@ public class DraftRunner {
             position = console.nextInt() - 1;
             console.nextLine();
         }
-        draftboard = new Draftboard(players, position, ADP, positions);
+        draftboard = new Draftboard(players, position, ADP, positions, ids);
 
         System.out.print("Will this be with 3RR? (y/n): ");
         boolean with3RR = console.nextLine().equalsIgnoreCase("y");
