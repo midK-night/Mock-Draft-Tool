@@ -28,7 +28,7 @@ public class DraftRunner {
             position = console.nextInt() - 1;
             console.nextLine();
         }
-        draftboard = new Draftboard(players, position, ADP, positions);
+        draftboard = new Draftboard(players, position, ADP, positions, ids);
 
         System.out.print("Will this be with 3RR? (y/n): ");
         boolean with3RR = console.nextLine().equalsIgnoreCase("y");
@@ -149,6 +149,13 @@ public class DraftRunner {
             String tempPlayer = d.getADP()[p.getRoster().get(i)];
             str += "\"" + tempPlayer + "\",\n";
         }
+        str += "]\n";
+
+        ArrayList<Integer> temp = d.getDraftOrder();
+        for (int i : temp) {
+            str += "" + i + ",\n";
+        }
+
         str += "]\n}\n]";
 
         try {

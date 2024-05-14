@@ -1,12 +1,15 @@
 [
   {
-    "team-name": "",
+    "team-name": "Sample Team",
     "month":"",
     "date": "",
     "year":"",
     "players": [
       "",
       ""
+    ],
+    "draft-order": [
+      1, 2, 3
     ]
   }
 
