@@ -118,7 +118,7 @@ public class DraftRunner {
             while (iterator.hasNext()) {
                 JsonNode node = iterator.next();
                 JsonNode playerNode = node.get("player");
-                JsonNode idNode = playerNode.get("id");
+                JsonNode idNode = playerNode.get("sleeperId");
                 ids.add(idNode.asInt());
                 iterator.remove();
             }
