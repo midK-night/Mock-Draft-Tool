@@ -31,7 +31,7 @@ public class TeamReader {
         callTeam(teams, teamNumber);
 
         System.out.print("Would you like to see the entire draft? (y/n): ");
-        boolean draftWrite = console.nextLine().toLowerCase().equals("y");
+        boolean draftWrite = console.nextLine().equalsIgnoreCase("y");
 
         if (draftWrite) {
             draftWriter(ids, teams.get(teamNumber));
@@ -39,7 +39,7 @@ public class TeamReader {
     }
 
     public static Map<Integer,String> mapMaker() {
-        Map map = new HashMap<Integer, String>();
+        Map<Integer, String> map = new HashMap<>();
         String local = System.getProperty("user.dir");
         local += "\\src\\main\\java\\org\\example\\data\\players.json";
         ObjectMapper mapper = new ObjectMapper();
