@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class DraftRunner {
-    public static void main(String[] args) throws IOException {
+    public static void main() throws IOException {
         int[] ids = idRetriever();
         String[] ADP = adpRetrieve("ADP").getAdp();
         int[] positions = adpRetrieve("not adp").getPos();
