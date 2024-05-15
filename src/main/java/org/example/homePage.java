@@ -46,6 +46,7 @@ public class homePage extends JFrame implements ActionListener {
         } else if (e.getSource() == updateADP) {
             try {
                 ADP_Updater.main();
+                System.out.println("Updated ADP!\n");
             } catch (IOException | URISyntaxException | InterruptedException ex) {
                 throw new RuntimeException(ex);
             }
