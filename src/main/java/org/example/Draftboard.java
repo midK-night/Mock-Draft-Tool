@@ -3,6 +3,8 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.example.templates.*;
+
 public class Draftboard {
     static ArrayList<Player> players;
     static String[] ADP;

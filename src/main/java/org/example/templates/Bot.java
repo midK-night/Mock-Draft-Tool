@@ -1,7 +1,9 @@
-package org.example;
+package org.example.templates;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import org.example.Draftboard;
 
 public class Bot {
     private final ArrayList<Integer> roster;
@@ -24,14 +26,14 @@ public class Bot {
         while (!validResponse) {
             switch (attribute) {
                 case 1: // BPA
-                    location = BPA(draftboard,pick);
+                    location = BPA(draftboard, pick);
                     break;
                 case 2: // Hero RB
                     int round = (pick / draftboard.getPlayerAmount()) + 1;
                     if (round == 2) {
                         location = draftboard.highestADP(4);
                     } else if (round > 9) {
-                        location = BPA(draftboard,pick);
+                        location = BPA(draftboard, pick);
                     } else {
                         boolean isRB = true;
                         int RB_tracker = draftboard.highestADP();
@@ -124,7 +126,8 @@ public class Bot {
         int currentRound = draftboard.getRound();
         int currentPick = 1 + (pick % currentRound);
 
-        System.out.println(ADP[location] + " was drafted at pick " + (1 + pick) + ", which is round " + (currentRound) + " pick " + (currentPick));
+        System.out.println(ADP[location] + " was drafted at pick " + (1 + pick) + ", which is round " + (currentRound)
+                + " pick " + (currentPick));
         return location;
     }
 
@@ -144,13 +147,13 @@ public class Bot {
         boolean[] isDraft = draftboard.getDrafted();
         int location = -1;
         for (int i = 0; i < 5 && draftboard.highestADP() + i < positions.length; i++) {
-            if (positions[draftboard.highestADP() + i]  == pos && !isDraft[draftboard.highestADP() + i]) {
+            if (positions[draftboard.highestADP() + i] == pos && !isDraft[draftboard.highestADP() + i]) {
                 location = draftboard.highestADP() + i;
                 isDrafted = true;
                 break;
             }
         }
-        return new heavyDraft(location,isDrafted);
+        return new heavyDraft(location, isDrafted);
     }
 
     public int BPA(Draftboard draftboard, int pick) {
@@ -165,7 +168,7 @@ public class Bot {
             boolean wr_pos = (positions[BPA_tracker] == 2 && (WRs <= 5 || BPA_tracker - 8 >= (pick)));
             boolean te_pos = (positions[BPA_tracker] == 3 && (TEs <= 4 || BPA_tracker - 8 >= (pick)));
             boolean rb_pos = (positions[BPA_tracker] == 4 && (RBs <= 4 || BPA_tracker - 8 >= (pick)));
-            if (qb_pos|| wr_pos || te_pos || rb_pos) {
+            if (qb_pos || wr_pos || te_pos || rb_pos) {
                 location = BPA_tracker;
                 BPA_break_tracker = true;
                 break;

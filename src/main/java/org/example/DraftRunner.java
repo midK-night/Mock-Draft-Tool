@@ -1,6 +1,5 @@
 package org.example;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
@@ -8,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Scanner;
+
+import org.example.data.*;
+import org.example.templates.Person;
 
 public class DraftRunner {
     public static void main() throws IOException {
@@ -62,28 +64,24 @@ public class DraftRunner {
     public static adpRetrieve adpRetrieve(String type) throws IOException {
         adpRetrieve adpRetrieve;
 
-        String local = System.getProperty("user.dir");
-        local += "\\src\\main\\java\\org\\example\\data\\ADP.json";
+        String dir = System.getProperty("user.dir");
+        String local = dir + "\\src\\main\\java\\org\\example\\data\\ADP.json";
 
         ObjectMapper mapper = new ObjectMapper();
+        Root root = mapper.readValue(new File(local), Root.class);
         if (type.equalsIgnoreCase("ADP")) {
             ArrayList<String> adp = new ArrayList<>();
-            JsonNode rootNode = mapper.readTree(new File(local));
-            JsonNode jsonNode = rootNode.get("adp");
-            Iterator<JsonNode> iterator = jsonNode.elements();
+            Iterator<Adp> iterator = root.adp.iterator();
             while (iterator.hasNext()) {
-                String temp = iterator.next().get("player").get("name").toString();
-                adp.add(temp.substring(1, temp.length() - 1));
+                adp.add(iterator.next().player.name);
                 iterator.remove();
             }
             adpRetrieve = new adpRetrieve(adp.toArray(new String[adp.size()]));
         } else {
             ArrayList<Integer> adp = new ArrayList<>();
-            JsonNode rootNode = mapper.readTree(new File(local));
-            JsonNode jsonNode = rootNode.get("adp");
-            Iterator<JsonNode> iterator = jsonNode.elements();
+            Iterator<Adp> iterator = root.adp.iterator();
             while (iterator.hasNext()) {
-                String pos = iterator.next().get("player").get("position").toString();
+                String pos = iterator.next().player.position;
                 if (pos.equals("\"QB\"")) {
                     adp.add(1);
                 } else if (pos.equals("\"RB\"")) {
@@ -95,37 +93,29 @@ public class DraftRunner {
                 }
                 iterator.remove();
             }
-            int[] positions = new int[adp.size()];
-            for (int i = 0; i < positions.length; i++) {
-                positions[i] = adp.get(i);
-            }
-            adpRetrieve = new adpRetrieve(positions);
+
+            adpRetrieve = new adpRetrieve(adp.toArray(new Integer[adp.size()]));
         }
 
         return adpRetrieve;
     }
 
-    public static int[] idRetriever() {
+    public static int[] idRetriever() throws IOException {
         ArrayList<Integer> ids = new ArrayList<>();
 
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            String local = System.getProperty("user.dir");
-            local += "\\src\\main\\java\\org\\example\\data\\ADP.json";
-            JsonNode rootNode = mapper.readTree(new File(local));
-            JsonNode jsonNode = rootNode.get("adp");
-            Iterator<JsonNode> iterator = jsonNode.elements();
-            while (iterator.hasNext()) {
-                JsonNode node = iterator.next();
-                JsonNode playerNode = node.get("player");
-                JsonNode idNode = playerNode.get("sleeperId");
-                ids.add(idNode.asInt());
-                iterator.remove();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        String dir = System.getProperty("user.dir");
+        String local = dir + "\\src\\main\\java\\org\\example\\data\\ADP.json";
 
+        ObjectMapper mapper = new ObjectMapper();
+        Root root = mapper.readValue(new File(local), Root.class);
+
+        Iterator<Adp> iterator = root.adp.iterator();
+        while (iterator.hasNext()) {
+            Adp mainNode = iterator.next();
+            int id = ((int) Integer.parseInt(mainNode.player.sleeperId));
+            ids.add(id);
+            iterator.remove();
+        }
 
         int[] idsArray = new int[ids.size()];
         for (int i = 0; i < idsArray.length; i++) {

@@ -1,7 +1,9 @@
-package org.example;
+package org.example.templates;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import org.example.Draftboard;
 
 public class Person {
     private final int pos;
@@ -22,15 +24,15 @@ public class Person {
             String input = console.nextLine();
             String[] ADP = draftboard.getADP();
             boolean[] isDrafted = draftboard.getDrafted();
-            for (int track = 0; track < ADP.length; track++)
-            {
+            for (int track = 0; track < ADP.length; track++) {
                 if (ADP[track].equalsIgnoreCase(input) && !isDrafted[track]) {
                     validResponse = true;
                     location = track;
                 }
             }
             if (!validResponse) {
-                System.out.println("Invalid response. Please enter full name or an player that has not already been drafted.");
+                System.out.println(
+                        "Invalid response. Please enter full name or an player that has not already been drafted.");
             } else {
                 roster.add(location);
             }

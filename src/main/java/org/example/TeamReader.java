@@ -9,9 +9,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import org.example.templates.Team;
+
 public class TeamReader {
     public static void main(String[] args) {
-        Map<Integer,String> ids = mapMaker();
+        Map<Integer, String> ids = mapMaker();
         List<Team> teams = teamList();
         Scanner console = new Scanner(System.in);
 
@@ -38,7 +40,7 @@ public class TeamReader {
         }
     }
 
-    public static Map<Integer,String> mapMaker() {
+    public static Map<Integer, String> mapMaker() {
         Map<Integer, String> map = new HashMap<>();
         String local = System.getProperty("user.dir");
         local += "\\src\\main\\java\\org\\example\\data\\players.json";
@@ -118,7 +120,7 @@ public class TeamReader {
         System.out.println();
     }
 
-    public static void draftWriter(Map<Integer,String> ids, Team team) {
+    public static void draftWriter(Map<Integer, String> ids, Team team) {
         try {
             String local = System.getProperty("user.dir");
             local += "\\src\\main\\java\\org\\example\\data\\draft.txt";
