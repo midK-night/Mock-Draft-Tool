@@ -8,8 +8,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import org.example.data.*;
-import org.example.templates.Person;
+import org.example.Data.*;
+import org.example.Models.Draftboard;
+import org.example.Models.Person;
+import org.example.Models.adpRetrieve;
 
 public class DraftRunner {
     public static void main() throws IOException {
@@ -59,6 +61,7 @@ public class DraftRunner {
             String name = console.nextLine();
             teamSaver(draftboard, name);
         }
+        console.close();
     }
 
     public static adpRetrieve adpRetrieve(String type) throws IOException {
@@ -181,6 +184,9 @@ public class DraftRunner {
                 currentLine = br.readLine();
                 bw.write(currentLine);
             }
+
+            br.close();
+            bw.close();
 
             tempFile.renameTo(inputFile);
             inputFile.delete();

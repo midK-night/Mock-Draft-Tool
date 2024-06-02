@@ -1,4 +1,4 @@
-package org.example.data;
+package org.example.Data;
 
 public class Player {
     public int id;

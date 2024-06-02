@@ -1,4 +1,4 @@
-package org.example.templates;
+package org.example.Models;
 
 public class Player {
     private Person controlled;

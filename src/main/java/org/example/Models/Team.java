@@ -1,4 +1,4 @@
-package org.example.templates;
+package org.example.Models;
 
 import java.util.ArrayList;
 import java.util.Date;

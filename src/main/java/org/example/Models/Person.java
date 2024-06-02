@@ -1,11 +1,10 @@
-package org.example.templates;
+package org.example.Models;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.example.Draftboard;
-
 public class Person {
+    @SuppressWarnings("unused")
     private final int pos;
     private final ArrayList<Integer> roster;
 
@@ -22,6 +21,7 @@ public class Person {
         while (!validResponse) {
             System.out.print("\nWho are you drafting? (Full Name): ");
             String input = console.nextLine();
+            console.close();
             String[] ADP = draftboard.getADP();
             boolean[] isDrafted = draftboard.getDrafted();
             for (int track = 0; track < ADP.length; track++) {

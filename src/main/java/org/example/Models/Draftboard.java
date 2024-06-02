@@ -1,9 +1,7 @@
-package org.example;
+package org.example.Models;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import org.example.templates.*;
 
 public class Draftboard {
     static ArrayList<Player> players;
@@ -143,12 +141,14 @@ public class Draftboard {
                         case 8:
                             System.out.println("None");
                     }
-                    int pick = players.get(i).getBot().onTheClock(this, (round * players.size()) + (players.size() - i));
+                    int pick = players.get(i).getBot().onTheClock(this,
+                            (round * players.size()) + (players.size() - i));
                     isDrafted[pick] = true;
                     draftboard.add(pick);
                 }
             }
         }
+        console.close();
     }
 
     public void round(int round, boolean oddRound) {

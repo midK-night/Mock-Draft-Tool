@@ -9,7 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-import org.example.templates.Team;
+import org.example.Models.Team;
 
 public class TeamReader {
     public static void main(String[] args) {
@@ -34,6 +34,8 @@ public class TeamReader {
 
         System.out.print("Would you like to see the entire draft? (y/n): ");
         boolean draftWrite = console.nextLine().equalsIgnoreCase("y");
+
+        console.close();
 
         if (draftWrite) {
             draftWriter(ids, teams.get(teamNumber));

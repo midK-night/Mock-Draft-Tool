@@ -1,9 +1,7 @@
-package org.example.templates;
+package org.example.Models;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import org.example.Draftboard;
 
 public class Bot {
     private final ArrayList<Integer> roster;
