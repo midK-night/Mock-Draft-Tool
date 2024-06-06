@@ -15,7 +15,6 @@ public class mainButton extends JButton implements ActionListener {
         this.setHorizontalTextPosition(JButton.CENTER);
         this.setVerticalTextPosition(JButton.CENTER);
         this.setFont(new Font("Comic Sans", Font.BOLD, 25));
-        this.setEnabled(true);
     }
 
     @Override

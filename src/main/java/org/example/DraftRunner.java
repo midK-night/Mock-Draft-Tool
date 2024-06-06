@@ -153,7 +153,7 @@ public class DraftRunner {
 
         try {
             String local = System.getProperty("user.dir");
-            local += "\\src\\main\\java\\org\\example\\data\\teams.json";
+            local += "\\src\\main\\java\\org\\example\\data\\player_teams.json";
             BufferedWriter writer = new BufferedWriter(new FileWriter(local));
             lastLineDelete(local);
             writer.write(str);

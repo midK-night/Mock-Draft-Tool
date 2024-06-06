@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.*;
 
 import org.example.Models.Team;
+import org.example.Data.*;
 
 public class TeamReader {
     public static void main(String[] args) {
@@ -52,8 +53,8 @@ public class TeamReader {
             JsonNode root = mapper.readTree(new File(local));
             for (int i = 1; i <= root.size(); i++) {
                 String id = i + "";
-                JsonNode node = root.get(id);
-                if (node.isTextual()) {
+                JsonNode node = root.path(id);
+                if (!node.path("full_name").isMissingNode()) {
                     String name = node.get("full_name").asText();
                     map.put(i, name);
                 }
@@ -74,32 +75,32 @@ public class TeamReader {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            JsonNode root = mapper.readTree(new File(local));
-            Iterator<JsonNode> iterator = root.elements();
+            Teams teams = mapper.readValue(new File(local), Teams.class);
+            Iterator<org.example.Data.Team> iterator = teams.player_teams.iterator();
             while (iterator.hasNext()) {
-                Team temp;
+                Team output;
+                org.example.Data.Team temp = iterator.next();
+                String name = temp.teamName;
 
-                String name = iterator.next().get("team-name").asText();
-
-                int year = Integer.parseInt(iterator.next().get("year").asText());
-                int month = Integer.parseInt(iterator.next().get("month").asText());
-                int date = Integer.parseInt(iterator.next().get("date").asText());
+                int year = Integer.parseInt(temp.year);
+                int month = Integer.parseInt(temp.month);
+                int date = Integer.parseInt(temp.date);
                 Date day = new Date(year, month, date);
 
-                Iterator<JsonNode> team = iterator.next().get("players").elements();
+                Iterator<String> team = temp.players.iterator();
                 ArrayList<String> players = new ArrayList<>();
                 while (team.hasNext()) {
-                    players.add(team.next().asText());
+                    players.add(team.next());
                 }
 
-                Iterator<JsonNode> playerDraftOrder = iterator.next().get("players").elements();
+                Iterator<Integer> playerDraftOrder = temp.draftOrder.iterator();
                 ArrayList<Integer> draftOrder = new ArrayList<>();
                 while (playerDraftOrder.hasNext()) {
-                    draftOrder.add(Integer.parseInt(team.next().asText()));
+                    draftOrder.add(playerDraftOrder.next());
                 }
 
-                temp = new Team(name, day, players, draftOrder);
-                list.add(temp);
+                output = new Team(name, day, players, draftOrder);
+                list.add(output);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -135,7 +136,7 @@ public class TeamReader {
             }
             bw.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

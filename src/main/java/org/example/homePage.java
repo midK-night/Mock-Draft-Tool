@@ -29,6 +29,8 @@ public class homePage extends JFrame implements ActionListener {
         savedDrafts = new mainButton("Saved Drafts", 650, 200);
 
         runDraft.addActionListener(this);
+        updateADP.addActionListener(this);
+        savedDrafts.addActionListener(this);
 
         frame.add(runDraft);
         frame.add(updateADP);
