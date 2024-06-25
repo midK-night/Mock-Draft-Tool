@@ -131,7 +131,7 @@ public class DraftRunner {
         Date date = new Date();
         String str = "{\n";
 
-        str += "\"name\": \"" + name + "\",\n";
+        str += "\"teamName\": \"" + name + "\",\n";
         str += "\"month\": \"" + date.getMonth() + "\",\n";
         str += "\"date\": \"" + date.getDate() + "\",\n";
         str += "\"year\": \"" + date.getYear() + "\",\n";
@@ -142,18 +142,19 @@ public class DraftRunner {
             String tempPlayer = d.getADP()[p.getRoster().get(i)];
             str += "\"" + tempPlayer + "\",\n";
         }
-        str += "]\n";
+        str += "],\n";
 
+        str += "\"draftOrder\": [";
         ArrayList<Integer> temp = d.getDraftOrder();
         for (int i : temp) {
             str += "" + i + ",\n";
         }
 
-        str += "]\n}\n]";
+        str += "]\n}\n]}";
 
         try {
             String local = System.getProperty("user.dir");
-            local += "\\src\\main\\java\\org\\example\\data\\player_teams.json";
+            local += "\\src\\main\\java\\org\\example\\data\\teams.json";
             BufferedWriter writer = new BufferedWriter(new FileWriter(local));
             lastLineDelete(local);
             writer.write(str);
@@ -180,10 +181,12 @@ public class DraftRunner {
             int lines = countLines(temp);
 
             br = new BufferedReader(new FileReader(inputFile));
-            for (int i = 0; i < lines - 1; i++) {
+            for (int i = 0; i < lines - 2; i++) {
                 currentLine = br.readLine();
                 bw.write(currentLine);
             }
+
+            bw.write(br.readLine() + ","); // to add the , at the end of the JSON object, allowing it to add next item in the array
 
             br.close();
             bw.close();

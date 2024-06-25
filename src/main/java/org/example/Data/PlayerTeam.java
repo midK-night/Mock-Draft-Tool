@@ -2,7 +2,7 @@ package org.example.Data;
 
 import java.util.ArrayList;
 
-public class Team {
+public class PlayerTeam {
     public String teamName;
     public String month;
     public String date;

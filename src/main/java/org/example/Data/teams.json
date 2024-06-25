@@ -1,7 +1,7 @@
 {
   "player_teams": [
   {
-    "team-name": "Sample Team",
+    "teamName": "Sample Team",
     "month":"",
     "date": "",
     "year":"",
@@ -9,7 +9,7 @@
       "",
       ""
     ],
-    "draft-order": [
+    "draftOrder": [
       1, 2, 3
     ]
   },
