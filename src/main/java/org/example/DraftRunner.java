@@ -21,6 +21,7 @@ public class DraftRunner {
 
         Draftboard draftboard;
         Scanner console = new Scanner(System.in);
+        console.nextLine();
         System.out.print("Enter the amount of players: ");
         int players = console.nextInt();
         console.nextLine();

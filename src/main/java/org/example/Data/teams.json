@@ -2,9 +2,9 @@
   "player_teams": [
   {
     "teamName": "Sample Team",
-    "month":"",
-    "date": "",
-    "year":"",
+    "month":"5",
+    "date": "25",
+    "year":"124",
     "players": [
       "",
       ""
@@ -12,8 +12,5 @@
     "draftOrder": [
       1, 2, 3
     ]
-  },
-  {
-
   }
 ]}

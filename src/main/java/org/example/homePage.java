@@ -39,6 +39,7 @@ public class homePage extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //todo figure out a way to not? close scanner cuz if closed then system.in gets closed as well
         if (e.getSource() == runDraft) {
             try {
                 DraftRunner.main();
@@ -53,7 +54,11 @@ public class homePage extends JFrame implements ActionListener {
                 throw new RuntimeException(ex);
             }
         } else if (e.getSource() == savedDrafts) {
-
+            try {
+                TeamReader.main();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }

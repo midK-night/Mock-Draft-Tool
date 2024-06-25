@@ -16,7 +16,7 @@ import org.example.Data.*;
 
 public class TeamReader {
     //todo implement javax swing
-    public static void main(String[] args) {
+    public static void main() {
         Map<Integer, String> ids = mapMaker();
         List<Team> teams = teamList();
         Scanner console = new Scanner(System.in);
@@ -39,6 +39,7 @@ public class TeamReader {
         System.out.print("Would you like to see the entire draft? (y/n): ");
         boolean draftWrite = console.nextLine().equalsIgnoreCase("y");
 
+        console.nextLine();
         console.close();
 
         if (draftWrite) {
@@ -73,8 +74,6 @@ public class TeamReader {
     }
 
     public static List<Team> teamList() {
-        //todo debug? find error in mapping the file to the class
-
         List<Team> list = new ArrayList<>();
 
         String local = System.getProperty("user.dir");
