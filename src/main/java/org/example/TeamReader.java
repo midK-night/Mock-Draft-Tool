@@ -7,6 +7,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 import org.example.Models.Team;
@@ -50,13 +52,16 @@ public class TeamReader {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            JsonNode root = mapper.readTree(new File(local));
-            for (int i = 1; i <= root.size(); i++) {
-                String id = i + "";
-                JsonNode node = root.path(id);
-                if (!node.path("full_name").isMissingNode()) {
-                    String name = node.get("full_name").asText();
-                    map.put(i, name);
+            String root = Files.readString(Path.of(local));
+            JsonNode rootNode = mapper.readTree(root);
+            Iterator<Map.Entry<String, JsonNode>> fields = rootNode.fields();
+            while (fields.hasNext()) {
+                Map.Entry<String, JsonNode> field = fields.next();
+                try {
+                    map.put(Integer.valueOf(field.getKey()), field.getValue().path("full_name").asText());
+                }
+                catch (NumberFormatException e) {
+                    "".isEmpty(); // placeholder, similar to pass
                 }
             }
         } catch (IOException | NullPointerException e) {
@@ -103,7 +108,7 @@ public class TeamReader {
                 list.add(output);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         return list;
