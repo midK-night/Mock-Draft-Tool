@@ -72,6 +72,8 @@ public class TeamReader {
     }
 
     public static List<Team> teamList() {
+        //todo debug? find error in mapping the file to the class
+
         List<Team> list = new ArrayList<>();
 
         String local = System.getProperty("user.dir");
@@ -81,10 +83,10 @@ public class TeamReader {
 
         try {
             Teams teams = mapper.readValue(new File(local), Teams.class);
-            Iterator<org.example.Data.Team> iterator = teams.player_teams.iterator();
+            Iterator<org.example.Data.PlayerTeam> iterator = teams.player_teams.iterator();
             while (iterator.hasNext()) {
                 Team output;
-                org.example.Data.Team temp = iterator.next();
+                org.example.Data.PlayerTeam temp = iterator.next();
                 String name = temp.teamName;
 
                 int year = Integer.parseInt(temp.year);
