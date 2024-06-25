@@ -63,6 +63,7 @@ public class DraftRunner {
         }
         console.close();
     }
+    //todo integrate with javax.swing
 
     public static adpRetrieve adpRetrieve(String type) throws IOException {
         adpRetrieve adpRetrieve;
