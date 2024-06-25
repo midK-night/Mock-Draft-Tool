@@ -15,6 +15,7 @@ import org.example.Models.Team;
 import org.example.Data.*;
 
 public class TeamReader {
+    //todo implement javax swing
     public static void main(String[] args) {
         Map<Integer, String> ids = mapMaker();
         List<Team> teams = teamList();

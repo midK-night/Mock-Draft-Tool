@@ -20,6 +20,12 @@ public class Draftboard {
 
     public static ArrayList<Integer> draftboard;
 
+    /*fixme integrate with javax.swing
+        - draftboard
+        - team so far
+        - top 5 per pos
+     */
+
     public Draftboard(int teamAmount, int playerDraftPos, String[] names, int[] pos, int[] ids) {
         this.playerDraftPos = playerDraftPos;
         players = new ArrayList<>();
@@ -49,6 +55,7 @@ public class Draftboard {
         this.ids = ids;
     }
 
+    //todo rewrite the code integrating with javax, updating table instead of asking for check roster
     public void round(int round, boolean oddRound, int playerPosition) {
         this.round = round + 1;
         Scanner console = new Scanner(System.in);
@@ -100,7 +107,8 @@ public class Draftboard {
                     draftboard.add(pick);
                 }
             }
-        } else {
+        }
+        else {
             for (int i = players.size() - 1; i >= 0; i--) {
                 if (i == playerPosition) {
                     System.out.print("\nWould you like to see your roster? (y/n): ");
@@ -151,6 +159,7 @@ public class Draftboard {
         console.close();
     }
 
+    // without bots
     public void round(int round, boolean oddRound) {
         this.round = round + 1;
         System.out.println("\n*************\nROUND " + round + "\n*************\n");
