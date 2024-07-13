@@ -41,7 +41,6 @@ public class homePage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Scanner console = new Scanner(System.in);
-        //todo figure out a way to not? close scanner cuz if closed then system.in gets closed as well
         if (e.getSource() == runDraft) {
             try {
                 DraftRunner.main(console);
