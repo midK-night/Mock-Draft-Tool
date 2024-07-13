@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Scanner;
 
 public class homePage extends JFrame implements ActionListener {
     JButton runDraft;
@@ -39,10 +40,11 @@ public class homePage extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Scanner console = new Scanner(System.in);
         //todo figure out a way to not? close scanner cuz if closed then system.in gets closed as well
         if (e.getSource() == runDraft) {
             try {
-                DraftRunner.main();
+                DraftRunner.main(console);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -55,7 +57,7 @@ public class homePage extends JFrame implements ActionListener {
             }
         } else if (e.getSource() == savedDrafts) {
             try {
-                TeamReader.main();
+                TeamReader.main(console);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

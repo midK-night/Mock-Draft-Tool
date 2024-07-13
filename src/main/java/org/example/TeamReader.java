@@ -16,10 +16,10 @@ import org.example.Data.*;
 
 public class TeamReader {
     //todo implement javax swing
-    public static void main() {
+    public static void main(Scanner console) {
+
         Map<Integer, String> ids = mapMaker();
         List<Team> teams = teamList();
-        Scanner console = new Scanner(System.in);
 
         System.out.println("Which team would you like to see?:");
         for (int i = 0; i < teams.size(); i++) {
@@ -38,9 +38,6 @@ public class TeamReader {
 
         System.out.print("Would you like to see the entire draft? (y/n): ");
         boolean draftWrite = console.nextLine().equalsIgnoreCase("y");
-
-        console.nextLine();
-        console.close();
 
         if (draftWrite) {
             draftWriter(ids, teams.get(teamNumber));

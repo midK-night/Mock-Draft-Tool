@@ -14,13 +14,12 @@ import org.example.Models.Person;
 import org.example.Models.adpRetrieve;
 
 public class DraftRunner {
-    public static void main() throws IOException {
+    public static void main(Scanner console) throws IOException {
         int[] ids = idRetriever();
         String[] ADP = adpRetrieve("ADP").getAdp();
         int[] positions = adpRetrieve("not adp").getPos();
 
         Draftboard draftboard;
-        Scanner console = new Scanner(System.in);
         console.nextLine();
         System.out.print("Enter the amount of players: ");
         int players = console.nextInt();
@@ -62,7 +61,6 @@ public class DraftRunner {
             String name = console.nextLine();
             teamSaver(draftboard, name);
         }
-        console.close();
     }
 
     public static adpRetrieve adpRetrieve(String type) throws IOException {
